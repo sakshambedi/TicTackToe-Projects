@@ -20,46 +20,47 @@ public class GameBoard{
     // main mehtod for the class
     public static void main(String[] args){
         // ------------------ Assigning variables --------------==
-        String[][] gameBoard = {{"  ", "|", "  ", "|", "  "},
-                                {"--", "+", "--", "+", "--"},
-                                {"  ", "|", "  ", "|", "  "},
-                                {"--", "+", "--", "+", "--"},
-                                {"  ", "|", "  ", "|", "  "}};
+        String[][] gameBoard = {{"   ", "|", "   ", "|", "   "},
+                                {"---", "+", "---", "+", "---"},
+                                {"   ", "|", "   ", "|", "   "},
+                                {"---", "+", "---", "+", "---"},
+                                {"   ", "|", "   ", "|", "   "}};
         int turn = 0;
-        int[] posArray = new int[9];    // array help me to keep record of the position where the value has already been added
-        Scanner scanItem = new Scanner(System.in);                        
+        int index = 0 ;
+        boolean boolValue = true;
+        int[] posArray = new int[9];    // array help me to keep record of the position where the value has already been added                        
 
         // creating Instance players 
         Player Player1 = new Player1();
         Player Player2 = new Player2();
 
-
         // printing the board for now
         // for debugging
         // printBoard(gameBoard);
 
-        // Assigns player1 and player 2 consecutively 
-        Player currentPlayer = returnPlayer(Player1,Player2,turn);
-        turn++;
+        while(boolValue){
+            Scanner scanItem = new Scanner(System.in);
 
-        System.out.print("Enter the position of " + currentPlayer.toString() +  " for " + currentPlayer.playerName() + " : " );
-        String pos = String.valueOf(scanItem.nextInt());
-        
-        if(enterInPosition(Integer.valueOf(pos),posArray)){
-            playTic(pos, gameBoard, currentPlayer);
-            printBoard(gameBoard);
-            if (gameBoard[0][0] == gameBoard[2][2] && gameBoard[0][0]== gameBoard[4][4] && (gameBoard[0][0] == Player1.toString() || gameBoard[0][0] == Player2.toString())){
-                System.out.println(currentPlayer.playerName() + " has won the game ");
-            }else if (gameBoard[4][0] == gameBoard[2][2] && gameBoard[4][0]== gameBoard[0][4] && (gameBoard[4][0] == Player1.toString() || gameBoard[0][0] == Player2.toString())){
-                System.out.println(currentPlayer.playerName() + " has won the game ");
-            }else if (gameBoard[])
-        }else{
-            System.out.println("Already added a value here ! Please enter Value in other places !");
+            // Assigns player1 and player 2 consecutively 
+            Player currentPlayer = returnPlayer(Player1,Player2,turn);
+            turn++;
+
+            System.out.print("Enter the position of " + currentPlayer.toString() +  " for " + currentPlayer.playerName() + " : " );
+            String pos = String.valueOf(scanItem.nextInt());
+
+            if(enterInPosition(Integer.valueOf(pos),posArray)){
+                posArray[index] = Integer.valueOf(pos);
+                index++;
+                playTic(pos, gameBoard, currentPlayer);
+                printBoard(gameBoard);
+                if (validateDiagonal(gameBoard, currentPlayer, Player1, Player2)){
+                    System.out.println(currentPlayer.playerName() + " has won the game ");
+                    boolValue = false;
+                }    
+            }else{
+                System.out.println("Already added a value here ! Please enter Value in other places !");
+            }
         }
-
-        // closing scanner object 
-        scanItem.close();
-        
     }
 
 
@@ -75,34 +76,35 @@ public class GameBoard{
 
     // Method to edit and manipulate the grid 
     // based upon the position recieved as a parameter 
+    // used switch to avoid errors 
     public static void playTic(String pos, String[][] gameBoard, Player currentPlayer){
         switch(Integer.valueOf(pos)){
             case 1:
-                gameBoard[0][0] = currentPlayer.toString() + " ";
+                gameBoard[0][0] = " " + currentPlayer.toString() + " ";
                 break;
             case 2:
-                gameBoard[0][2] = currentPlayer.toString() + " ";
+                gameBoard[0][2] = " " + currentPlayer.toString() + " ";
                 break;
             case 3:
-                gameBoard[0][4] = currentPlayer.toString() + " ";
+                gameBoard[0][4] = " " + currentPlayer.toString() + " ";
                 break;
             case 4:
-                gameBoard[2][0] = currentPlayer.toString() + " ";
+                gameBoard[2][0] = " " + currentPlayer.toString() + " ";
                 break;
             case 5:
-                gameBoard[2][2] = currentPlayer.toString() + " ";
+                gameBoard[2][2] = " " + currentPlayer.toString() + " ";
                 break;
             case 6:
-                gameBoard[2][4] = currentPlayer.toString() + " ";
+                gameBoard[2][4] = " " + currentPlayer.toString() + " ";
                 break;
             case 7:
-                gameBoard[4][0] = currentPlayer.toString() + " ";
+                gameBoard[4][0] = " " + currentPlayer.toString() + " ";
                 break;
             case 8:
-                gameBoard[4][2] = currentPlayer.toString() + " ";
+                gameBoard[4][2] = " " + currentPlayer.toString() + " ";
                 break;
             case 9:
-                gameBoard[4][4] = currentPlayer.toString() + " ";
+                gameBoard[4][4] = " " + currentPlayer.toString() + " ";
                 break;        
         }
     }
@@ -121,12 +123,23 @@ public class GameBoard{
     //  keeps record the positions where the value has added a value 
     //  prevents over written values 
     private static boolean enterInPosition(int pos,int[] posArray){
-        for (int index : posArray){
+        for (int index = 0 ; index < posArray.length ; index++){
             if(posArray[index] == (pos)){
                 return false;
             }    
         }
         return true;
+    }
+
+    // Method that checks if the diagonals are same 
+    // checks for both cases 
+    private static boolean validateDiagonal(String[][] gameBoard, Player currentPlayer, Player Player1, Player Player2 ){
+        if (gameBoard[0][0].equals(gameBoard[2][2]) && gameBoard[0][0].equals(gameBoard[4][4]) && (gameBoard[0][0].equals(Player1.toString()) || gameBoard[0][0].equals(Player2.toString()))){
+            return true;
+        }else if (gameBoard[4][0].equals(gameBoard[2][2]) && gameBoard[4][0].equals(gameBoard[0][4]) && (gameBoard[4][0].equals(Player1.toString()) || gameBoard[0][0].equals(Player2.toString()))){
+            return true;
+        }
+        return false;
     }
 
 }
