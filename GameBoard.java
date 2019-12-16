@@ -43,24 +43,39 @@ public class GameBoard{
 
             // Assigns player1 and player 2 consecutively 
             Player currentPlayer = returnPlayer(Player1,Player2,turn);
-            turn++;
 
             System.out.print("Enter the position of " + currentPlayer.toString() +  " for " + currentPlayer.playerName() + " : " );
             String pos = String.valueOf(scanItem.nextInt());
 
             if(enterInPosition(Integer.valueOf(pos),posArray)){
-                posArray[index] = Integer.valueOf(pos);
-                index++;
+                if (Integer.valueOf(pos)<1 || Integer.valueOf(pos) >9){
+                    System.out.println("Please Enter valid position (between 1 and 9 )! ");
+                }else{
+                    posArray[index] = Integer.valueOf(pos);
+                    index++;
+                }
+
+                // increament turns here so that the player does not changes
+                // prevents changing player if someone tries to enter in pre-occupied block  
+                turn++;
+                
+                // used to put X or O in the associated giver block 
                 playTic(pos, gameBoard, currentPlayer);
                 printBoard(gameBoard);
                 if (validateDiagonal(gameBoard, currentPlayer, Player1, Player2)){
                     System.out.println(currentPlayer.playerName() + " has won the game ");
                     boolValue = false;
-                }    
+                } else if (!validateEmpty(gameBoard)){
+                    System.out.println("\nGood Try ! The Game Ended with no one actually winning ! ");
+                    boolValue = false;
+                }  
             }else{
                 System.out.println("Already added a value here ! Please enter Value in other places !");
             }
         }
+        // cannot be resolved here
+        // if i put inside shows noSuchElementException
+        //scanItem.close();
     }
 
 
@@ -138,6 +153,21 @@ public class GameBoard{
             return true;
         }else if (gameBoard[4][0].equals(gameBoard[2][2]) && gameBoard[4][0].equals(gameBoard[0][4]) && (gameBoard[4][0].equals(Player1.toString()) || gameBoard[0][0].equals(Player2.toString()))){
             return true;
+        }
+        return false;
+    }
+
+
+    // checks if the tic tak Toe is full for not
+    // returns false if it is full
+    // keeps returning true if the blocks in the TIC TAC TOE are empty  
+    private static boolean validateEmpty(String[][] gameBoard){
+        for (int row = 0 ; row < 3 ; row++){
+            for (int col = 0 ; col < gameBoard[row].length ; col++){
+                if(gameBoard[row+2][col].equals("   ")){
+                    return true;
+                }
+            }
         }
         return false;
     }
