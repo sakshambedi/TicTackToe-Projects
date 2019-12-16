@@ -49,7 +49,7 @@ public class GameBoard{
 
             if(enterInPosition(Integer.valueOf(pos),posArray)){
                 if (Integer.valueOf(pos)<1 || Integer.valueOf(pos) >9){
-                    System.out.println("Please Enter valid position (between 1 and 9 )! ");
+                    System.out.println("Please Enter valid position (between 1 and 9) \n");
                 }else{
                     posArray[index] = Integer.valueOf(pos);
                     index++;
@@ -62,10 +62,10 @@ public class GameBoard{
                 // used to put X or O in the associated giver block 
                 playTic(pos, gameBoard, currentPlayer);
                 printBoard(gameBoard);
-                if (validateDiagonal(gameBoard, currentPlayer, Player1, Player2)){
-                    System.out.println(currentPlayer.playerName() + " has won the game ");
+                if (validateDiagonal(gameBoard, Player1, Player2)){
+                    System.out.println("\n"+currentPlayer.playerName() + " has won the game ");
                     boolValue = false;
-                } else if (!validateEmpty(gameBoard)){
+                }else if (!validateEmpty(gameBoard)){
                     System.out.println("\nGood Try ! The Game Ended with no one actually winning ! ");
                     boolValue = false;
                 }  
@@ -148,10 +148,10 @@ public class GameBoard{
 
     // Method that checks if the diagonals are same 
     // checks for both cases 
-    private static boolean validateDiagonal(String[][] gameBoard, Player currentPlayer, Player Player1, Player Player2 ){
-        if (gameBoard[0][0].equals(gameBoard[2][2]) && gameBoard[0][0].equals(gameBoard[4][4]) && (gameBoard[0][0].equals(Player1.toString()) || gameBoard[0][0].equals(Player2.toString()))){
+    private static boolean validateDiagonal(String[][] gameBoard, Player Player1, Player Player2 ){
+        if (gameBoard[0][0].equals(gameBoard[2][2]) && gameBoard[0][0].equals(gameBoard[4][4]) && (gameBoard[2][2].equals(" X ") || gameBoard[2][2].equals(" O "))){
             return true;
-        }else if (gameBoard[4][0].equals(gameBoard[2][2]) && gameBoard[4][0].equals(gameBoard[0][4]) && (gameBoard[4][0].equals(Player1.toString()) || gameBoard[0][0].equals(Player2.toString()))){
+        }else if (gameBoard[4][0].equals(gameBoard[2][2]) && gameBoard[4][0].equals(gameBoard[0][4]) && (gameBoard[4][0].equals(" X ") || gameBoard[4][0].equals(" O "))){
             return true;
         }
         return false;
