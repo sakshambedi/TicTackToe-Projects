@@ -55,8 +55,9 @@ public class GameBoard{
         // for debugging
         // printBoard(gameBoard);
 
+        Scanner scanItem = new Scanner(System.in);
+
         while(boolValue){
-            Scanner scanItem = new Scanner(System.in);
 
             // Assigns player1 and player 2 consecutively 
             Player currentPlayer = returnPlayer(Player1,Player2,turn);
@@ -88,7 +89,7 @@ public class GameBoard{
                     4. validateEmpty
                     5. Else no one won !
                 */
-                if (validateDiagonal(gameBoard, Player1, Player2)){
+                if (validateDiagonal(gameBoard)){
                     System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Diagonals ! ");
                     printLastMessage();
                     boolValue = false;
@@ -109,9 +110,9 @@ public class GameBoard{
                 System.out.println("Already added a value here ! Please enter Value in other places !");
             }
         }
-        // cannot be resolved here
-        // if i put inside shows noSuchElementException
-        //scanItem.close();
+
+        // make scanner Object outside the loop to prevent exceptions
+        scanItem.close();
     }
 
 
@@ -184,7 +185,7 @@ public class GameBoard{
 
     // Method that checks if the diagonals are same 
     // checks for both cases 
-    private static boolean validateDiagonal(String[][] gameBoard, Player Player1, Player Player2 ){
+    private static boolean validateDiagonal(String[][] gameBoard ){
         if (gameBoard[0][0].equals(gameBoard[2][2]) && gameBoard[0][0].equals(gameBoard[4][4]) && (gameBoard[2][2].equals(" X ") || gameBoard[2][2].equals(" O "))){
             return true;
         }else if (gameBoard[4][0].equals(gameBoard[2][2]) && gameBoard[4][0].equals(gameBoard[0][4]) && (gameBoard[4][0].equals(" X ") || gameBoard[4][0].equals(" O "))){
@@ -255,7 +256,7 @@ public class GameBoard{
 
 
     private static void printLastMessage(){
-        System.out.println("\n*************************************************************************************************************");
+        System.out.print("\n*************************************************************************************************************");
         System.out.print("\t\t\t  Thanks for playing the game ! See you soon !");
         System.out.println("\n*************************************************************************************************************");
     }
