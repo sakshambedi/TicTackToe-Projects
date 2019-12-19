@@ -8,8 +8,10 @@
         4.enterInPosition : Prevents overwritting by the user
         5.validateDiagonals : Verifies if the the diagonal of the game matches and trues a boolean based on that 
         6.validateRows : Verifies if the the rows of the game matches and trues a boolean based on that
-        7.validateCols : 
+        7.validateCols : verifies if the the columns of the game matches and trues a boolean based on that
         8.validateEmpty : Verifies if the game board is full or not and returns boolean based on the situation
+        9. printInitialMessage : printing nice user Experience messages when the game is started 
+        10. printLastMessage : printing nice user experience exiting messages when the game is over 
 
    parent class does nothing 
    SubClass : 
@@ -42,6 +44,12 @@ public class GameBoard{
         // creating Instance players 
         Player Player1 = new Player1();
         Player Player2 = new Player2();
+        
+        System.out.println("\n*****************************************************************************");
+        System.out.println("\t\tWelcome to the TIC TAC TOE game  ");
+        System.out.println("\n*****************************************************************************");
+         
+        printInitialMessage();
 
         // printing the board for now
         // for debugging
@@ -82,15 +90,19 @@ public class GameBoard{
                 */
                 if (validateDiagonal(gameBoard, Player1, Player2)){
                     System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Diagonals ! ");
+                    printLastMessage();
                     boolValue = false;
                 }else if(validateRows(gameBoard)){
                     System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Rows !");
+                    printLastMessage();
                     boolValue = false;
                 }else if(validateCols(gameBoard)){
                     System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Column ! ");
+                    printLastMessage();
                     boolValue = false;
                 }else if (!validateEmpty(gameBoard)){
                     System.out.println("\nGood Try ! The Game Ended with no one actually winning ! ");
+                    printLastMessage();
                     boolValue = false;
                 }  
             }else{
@@ -221,6 +233,31 @@ public class GameBoard{
         return false;
     }
 
-    
+    //method to print the initial messages for the game
+    private static void printInitialMessage(){
+        String[][] gameBoard = {{" 1 ", "|", " 2 ", "|", " 3 "},
+                                {"---", "+", "---", "+", "---"},
+                                {" 4 ", "|", " 5 ", "|", " 6 "},
+                                {"---", "+", "---", "+", "---"},
+                                {" 7 ", "|", " 8 ", "|", " 9 "} };
+        System.out.println("The Rules for the Game are quite straight forward and easy !");
+        System.out.println("The first person to make rows/columns/diagonals with similar signs wins !");
+        System.out.println("The following tic toe tac with numbers defines the positions to enter either X or O ! \nMake sure to remember these and not mess it up ! ");
+        System.out.println("*************************************************************************************************************\n");
+        for(String rows[] : gameBoard){
+            for (String cols : rows){
+                System.out.print(cols);
+            }
+            System.out.println();
+        }
+        System.out.println("\n*************************************************************************************************************");
+    }
+
+
+    private static void printLastMessage(){
+        System.out.println("\n*************************************************************************************************************");
+        System.out.print("\t\t\t  Thanks for playing the game ! See you soon !");
+        System.out.println("\n*************************************************************************************************************");
+    }
 
 }
