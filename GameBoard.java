@@ -1,6 +1,15 @@
 /*
 @@
    Game Board class contains the main method 
+    Contains other methods : 
+        1.printBoard :  to print the game board on the terminal 
+        2.playTic : Adds "X" or "O" at corresponding positions 
+        3.returnPlayer : returns players, used to consectively switch between players
+        4.enterInPosition : Prevents overwritting by the user
+        5.validateDiagonals : Verifies if the the diagonal of the game matches and trues a boolean based on that 
+        6.validateRows : Verifies if the the rows of the game matches and trues a boolean based on that
+        7.validateCols : 
+        8.validateEmpty : Verifies if the game board is full or not and returns boolean based on the situation
 
    parent class does nothing 
    SubClass : 
@@ -53,17 +62,32 @@ public class GameBoard{
                 }else{
                     posArray[index] = Integer.valueOf(pos);
                     index++;
-                }
 
-                // increament turns here so that the player does not changes
-                // prevents changing player if someone tries to enter in pre-occupied block  
-                turn++;
+                    // increament turns here so that the player does not changes
+                    // prevents changing player if someone tries to enter in pre-occupied block  
+                    turn++;
+                }
                 
-                // used to put X or O in the associated giver block 
+                // used to put X or O in the associated giver block and print it as the players enter their "X" or "O" 
                 playTic(pos, gameBoard, currentPlayer);
                 printBoard(gameBoard);
+                
+                /* 
+                @@  if else conditions to check various possible winning or losing conditions 
+                    1. validateDiagonals 
+                    2. validateRows
+                    3. validateCols 
+                    4. validateEmpty
+                    5. Else no one won !
+                */
                 if (validateDiagonal(gameBoard, Player1, Player2)){
-                    System.out.println("\n"+currentPlayer.playerName() + " has won the game ");
+                    System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Diagonals ! ");
+                    boolValue = false;
+                }else if(validateRows(gameBoard)){
+                    System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Rows !");
+                    boolValue = false;
+                }else if(validateCols(gameBoard)){
+                    System.out.println("\n"+currentPlayer.playerName() + " has won the game by making similar Column ! ");
                     boolValue = false;
                 }else if (!validateEmpty(gameBoard)){
                     System.out.println("\nGood Try ! The Game Ended with no one actually winning ! ");
@@ -157,6 +181,31 @@ public class GameBoard{
         return false;
     }
 
+    // method to check win situation for rows 
+    private static boolean validateRows(String[][] gameBoard){
+        for (int row = 0 ; row < 3 ; row++){
+            for (int col = 0 ; col < 1 ; col++){
+                if( (gameBoard[row][col].equals(" X ") || gameBoard[row][col].equals(" O ")) && gameBoard[row][0].equals(gameBoard[row][2]) && gameBoard[row][0].equals(gameBoard[row][4])  ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // method to check win situation for cols 
+    private static boolean validateCols(String[][] gameBoard){
+
+        for (int row = 0 ; row < gameBoard.length ; row++){
+            for (int col = 0 ; col < 1 ; col++){
+                if( (gameBoard[row][col].equals(" X ") || gameBoard[row][col].equals(" O ")) && gameBoard[0][row].equals(gameBoard[2][row]) && gameBoard[0][row].equals(gameBoard[4][row])  ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     // checks if the tic tak Toe is full for not
     // returns false if it is full
@@ -171,5 +220,7 @@ public class GameBoard{
         }
         return false;
     }
+
+    
 
 }
