@@ -72,7 +72,7 @@ public class GameBoard{
                     index++;
 
                     // increament turns here so that the player does not changes
-                    // prevents changing player if someone tries to enter in pre-occupied block  
+                    // placing here prevents changing player if someone tries to enter in pre-occupied block  
                     turn++;
                 }
                 
