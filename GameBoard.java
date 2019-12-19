@@ -12,7 +12,7 @@
         8.validateEmpty : Verifies if the game board is full or not and returns boolean based on the situation
         9. printInitialMessage : printing nice user Experience messages when the game is started 
         10. printLastMessage : printing nice user experience exiting messages when the game is over 
-
+        
    parent class does nothing 
    SubClass : 
             1. Player One - X
@@ -47,7 +47,7 @@ public class GameBoard{
         
         System.out.println("\n*****************************************************************************");
         System.out.println("\t\tWelcome to the TIC TAC TOE game  ");
-        System.out.println("\n*****************************************************************************");
+        System.out.println("*****************************************************************************");
          
         printInitialMessage();
 
@@ -235,7 +235,7 @@ public class GameBoard{
 
     //method to print the initial messages for the game
     private static void printInitialMessage(){
-        String[][] gameBoard = {{" 1 ", "|", " 2 ", "|", " 3 "},
+        String[][] sampleGameBoard = {{" 1 ", "|", " 2 ", "|", " 3 "},
                                 {"---", "+", "---", "+", "---"},
                                 {" 4 ", "|", " 5 ", "|", " 6 "},
                                 {"---", "+", "---", "+", "---"},
@@ -244,7 +244,7 @@ public class GameBoard{
         System.out.println("The first person to make rows/columns/diagonals with similar signs wins !");
         System.out.println("The following tic toe tac with numbers defines the positions to enter either X or O ! \nMake sure to remember these and not mess it up ! ");
         System.out.println("*************************************************************************************************************\n");
-        for(String rows[] : gameBoard){
+        for(String rows[] : sampleGameBoard){
             for (String cols : rows){
                 System.out.print(cols);
             }
