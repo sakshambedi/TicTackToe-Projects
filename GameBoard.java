@@ -244,21 +244,21 @@ public class GameBoard{
         System.out.println("The Rules for the Game are quite straight forward and easy !");
         System.out.println("The first person to make rows/columns/diagonals with similar signs wins !");
         System.out.println("The following tic toe tac with numbers defines the positions to enter either X or O ! \nMake sure to remember these and not mess it up ! ");
-        System.out.println("*************************************************************************************************************\n");
+        System.out.println("*****************************************************************************\n");
         for(String rows[] : sampleGameBoard){
             for (String cols : rows){
                 System.out.print(cols);
             }
             System.out.println();
         }
-        System.out.println("\n*************************************************************************************************************");
+        System.out.println("\n*****************************************************************************");
     }
 
 
     private static void printLastMessage(){
-        System.out.print("\n*************************************************************************************************************");
-        System.out.print("\t\t\t  Thanks for playing the game ! See you soon !");
-        System.out.println("\n*************************************************************************************************************");
+        System.out.println("\n*****************************************************************************");
+        System.out.print("\t\tThanks for playing the game ! See you soon !");
+        System.out.println("\n*****************************************************************************");
     }
 
 }
