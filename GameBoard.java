@@ -167,7 +167,7 @@ public class GameBoard{
         if(turn%2==0){
             currentPlayer = Player1;
         }else{
-            currentPlayer = Player2;
+            // currentPlayer = Player2;
         }
         return currentPlayer; 
     } 
